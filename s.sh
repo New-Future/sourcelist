@@ -16,10 +16,10 @@ done
 echo "finished test!"
 if (( $(echo "$V1 > $V2" |bc -l) )); then
     echo "$V1 [$S1] >  $V2 [$S2]"
-    SOURCE=$V1;
+    SOURCE=$S1;
 else
     echo "$V1 [$S1] <  $V2 [$S2]"
-    SOURCE=$V2;
+    SOURCE=$S2;
 fi;
 
 echo "change source list to $SOURCE"
