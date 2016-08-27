@@ -1,0 +1,19 @@
+pre="ipv6."
+CODENAME=$(lsb_release -c|awk '{print $2}')
+DISTRIBUTOR=$(lsb_release -i| awk '{print $3}')
+
+deb https://${pre}mirrors.ustc.edu.cn/${DISTRIBUTOR}/ ${CODENAME} main restricted universe multiverse
+deb-src https://${pre}mirrors.ustc.edu.cn/${DISTRIBUTOR}/ ${CODENAME} main restricted universe multiverse
+
+deb https://${pre}mirrors.ustc.edu.cn/${DISTRIBUTOR}/ ${CODENAME}-security main restricted universe multiverse
+deb-src https://${pre}mirrors.ustc.edu.cn/${DISTRIBUTOR}/ ${CODENAME}-security main restricted universe multiverse
+
+deb https://${pre}mirrors.ustc.edu.cn/${DISTRIBUTOR}/ ${CODENAME}-updates main restricted universe multiverse
+deb-src https://${pre}mirrors.ustc.edu.cn/${DISTRIBUTOR}/ ${CODENAME}-updates main restricted universe multiverse
+
+deb https://${pre}mirrors.ustc.edu.cn/${DISTRIBUTOR}/ ${CODENAME}-backports main restricted universe multiverse
+deb-src https://${pre}mirrors.ustc.edu.cn/${DISTRIBUTOR}/ ${CODENAME}-backports main restricted universe multiverse
+
+## Not recommended
+# deb https://${pre}mirrors.ustc.edu.cn/${DISTRIBUTOR}/ ${CODENAME}-proposed main restricted universe multiverse
+# deb-src https://${pre}mirrors.ustc.edu.cn/${DISTRIBUTOR}/ ${CODENAME}-proposed main restricted universe multiverse
