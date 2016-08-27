@@ -2,5 +2,5 @@
 自动设置软件源:notebook:
 
 ```bash
-curl -#L https://newfuture.github.io/sourcelist/sh|sudo bash
+curl -s https://newfuture.github.io/sourcelist/s.sh|sudo bash
 ```
