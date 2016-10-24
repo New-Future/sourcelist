@@ -26,4 +26,9 @@ echo "change source list to $SOURCE"
 
 (sed -i.bak "s~https\?://\([^/]\+\)\(.*\)~$SOURCE\2~" /etc/apt/sources.list)&&echo "Done!"
 
+#for kylin
+# sed -i.bak -e "s~https\?://\([^/]\+\)\(.*\)/ubuntukylin~$SOURCE/ubuntu-cdimage/ubuntukylin~" \
+#  `grep ubuntukylin -rl /etc/apt/ --include \*.list`
+
+
 apt update
