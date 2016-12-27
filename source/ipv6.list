@@ -1,0 +1,9 @@
+#ipv6软件源列表(ipv6 only)
+#格式：[url] #[name]
+#或格式: [url]
+
+# 清华源
+https://mirrors6.tuna.tsinghua.edu.cn
+
+# 中科大 ustc
+https://ipv6.mirrors.ustc.edu.cn

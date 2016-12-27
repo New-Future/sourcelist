@@ -1,0 +1,9 @@
+#软件源列表(ipv6和ipv4同时支持)
+#格式：[url] #[name]
+#或格式: [url]
+
+# 清华源双栈源
+https://mirrors.tuna.tsinghua.edu.cn/ #tsinghua
+# 中科大双栈源
+https://mirrors.ustc.edu.cn/ #ustc
+

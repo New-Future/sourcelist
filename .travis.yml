@@ -1,0 +1,47 @@
+#Reference from https://github.com/NewFuture/travis-page
+sudo: false
+
+env:
+ global:
+  - BUILD_PATH: "docs" #the build folder to deploy[生成发布的目录] 
+  - GIT_AUTHOR_NAME: "NewFuture" #username[用户名]
+  - GH_BRANCH: "gh-pages" #branches to push
+  # auto generation and detection 默认下面变量会自动配置GIT变量
+  - GIT_REF: "$(git ls-remote --get-url | sed -e 's#^https://#git@#' -e 's#/#:#')" #git url[修改为仓库地址]
+  - GIT_AUTHOR_EMAIL:  "${GIT_AUTHOR_NAME}@users.noreply.github.com"
+  - GIT_COMMITTER_NAME: "${GIT_AUTHOR_NAME}"
+  - GIT_COMMITTER_EMAIL: "${GIT_COMMITTER_NAME}@users.noreply.github.com"
+
+
+before_script:
+  - base64 -d <<< $RSAKEY > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+  # 继续添加其他需要准备的环境
+
+script: #下面替换成运行生成命令或者脚本
+  - python build.py
+
+
+after_success:
+  - cd "${BUILD_PATH}" && git init
+  - git remote add origin ${GIT_REF} && git fetch origin --depth=1
+  - if [ "`git branch -r --list origin/${GH_BRANCH}`" ] ; then
+        git reset origin/${GH_BRANCH};
+    else
+        git checkout -b ${GH_BRANCH};
+    fi;
+  - git add . && git commit -m "[skip ci] auto build $(date -I)"
+  - git push origin HEAD:${GH_BRANCH}
+
+
+git: #clone 目录深度 1 提高速度
+  depth: 1
+
+branches: #only build on master
+  only:
+  - master
+
+notifications:
+  email:
+    on_failure: change
+    on_success: change
