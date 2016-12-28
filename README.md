@@ -1,7 +1,6 @@
 
 # docs
 
-
 ## Sub Path
 
 * [auto](auto/)
@@ -33,9 +32,7 @@
 
 ---
 
-Auto generate from [github.com/NewFuture/sourcelist](https://github.com/NewFuture/sourcelist) update at {site.time}
-
-
+Auto generate from [github.com/NewFuture/sourcelist](https://github.com/NewFuture/sourcelist) update at {{ site.time }}
 
 [Need helps or find bugs click here ](https://github.com/NewFuture/sourcelist/issues)
 
