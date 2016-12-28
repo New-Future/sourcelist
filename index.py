@@ -10,6 +10,7 @@ import os
 SITE_ROOT = 'https://source.newfuture.xyz/'
 TEMPLATE = '''
 # {title}
+---
 
 {section}
 
@@ -25,7 +26,7 @@ FOOTER = '''
 [![Build Status](https://travis-ci.org/NewFuture/sourcelist.svg?branch=master)](https://travis-ci.org/NewFuture/sourcelist)
 auto generate via [github.com/NewFuture/sourcelist](https://github.com/NewFuture/sourcelist) at {{ site.time }}
 
-[Need helps or find bugs click here](https://github.com/NewFuture/sourcelist/issues)
+Feedback or get help [via issues](https://github.com/NewFuture/sourcelist/issues)
 '''
 
 
@@ -49,7 +50,7 @@ def link(url, prefix=''):
     '''
     generate markdown link
     '''
-    return '\n* [{0}]({0}) : `curl {2}{1}{0} -#L|bash`'.format(
+    return '\n* [{0}]({0}) : **`curl {2}{1}{0} -#L|bash`** '.format(
         url, prefix, SITE_ROOT)
 
 
