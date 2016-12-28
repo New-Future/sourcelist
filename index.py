@@ -11,18 +11,21 @@ SITE_ROOT = 'https://source.newfuture.xyz/'
 TEMPLATE = '''
 # {title}
 
-{subsection}
-
-# All Links
-
-{links}
+{section}
 
 ---
 
-Auto generate from [github.com/NewFuture/sourcelist](https://github.com/NewFuture/sourcelist) update at {{site.time}}\n\n
+# All Links
+{links}
+'''
 
-[Need helps or find bugs click here ](https://github.com/NewFuture/sourcelist/issues)
+FOOTER = '''
+---
 
+[![Build Status](https://travis-ci.org/NewFuture/sourcelist.svg?branch=master)](https://travis-ci.org/NewFuture/sourcelist)
+auto generate via [github.com/NewFuture/sourcelist](https://github.com/NewFuture/sourcelist) at {{ site.time }}
+
+[Need helps or find bugs click here](https://github.com/NewFuture/sourcelist/issues)
 '''
 
 
@@ -46,35 +49,38 @@ def link(url, prefix=''):
     '''
     generate markdown link
     '''
-    return '* [{0}]({1}{0}) : `curl {2}{1}{0} -#L|bash`'.format(
+    return '\n* [{0}]({0}) : `curl {2}{1}{0} -#L|bash`'.format(
         url, prefix, SITE_ROOT)
 
 
-def save(fname, data):
+def save_index(path, data):
     '''
     save file
     '''
-    with open(fname, 'w') as out:
-        print('generate: ', fname)
+    with open(os.path.join(path, 'README.md'), 'w') as out:
+        print('generate README.md: ', path)
         out.write(data)
+    with open(os.path.join(path, 'index.md'), 'w') as out:
+        print('generate index: ', path)
+        out.write(data + FOOTER)
 
 
-def generate(path):
+def generate(path, prefix=''):
     '''
      auto generate index for input folder
     '''
     [files, dirs] = list_dirs(path)
 
     if dirs:
-        sublinks = '\n## Sub Path\n'
+        sublinks = '## Sub Path\n'
         sublinks += reduce('{0}\n* [{1}]({1}/)'.format, dirs, '')
     else:
         sublinks = ''
-    links = reduce(lambda x, y: x + '\n' + link(y), files, '')
-    readme = TEMPLATE.format(title=path, subsection=sublinks, links=links)
-    save(os.path.join(path, 'README.md'), readme)
+    links = reduce(lambda x, y: x + link(y, prefix), files, '')
+    readme = TEMPLATE.format(title=path, section=sublinks, links=links)
+    save_index(path, readme)
 
     for sub in dirs:
-        generate(os.path.join(path, sub))
+        generate(os.path.join(path, sub), prefix + sub + '/')
 
 generate('docs')
