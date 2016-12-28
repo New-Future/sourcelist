@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # change source list
 
 SRC_PATH='/etc/apt/sources.list';

@@ -7,6 +7,9 @@ from __future__ import print_function
 import os
 
 SITE_ROOT = 'docs/'
+TMPLATE_DIR = 'template/'
+LIST_DIR = 'source/'
+LIST_EXT = '.txt'
 
 
 def read_list(fname):
@@ -55,55 +58,58 @@ def save(fname, data):
     if path and (not os.path.exists(path)):
         os.makedirs(path)
     with open(fname, 'w') as out:
+        print('save to: ', fname)
         out.write(data)
 
 
-def generate(source, prefix=''):
-    '''
-    generate source file
-    '''
-    slist = read_list(source)
-    template_speed = read_template('template/speed.sh')
-    template_list = read_template('template/list.sh')
-
-    lst = []
-    for (name, url) in slist.items():
-        lst.append("'{0}' #{1}".format(url, name))
-        script = template_list.replace('${FAST_SRC}', url)
-        save(prefix + name + '.sh', script)
-
-    source_list = "\n\t".join(lst)
-    script = template_speed.replace('__SOURCE_LIST__', source_list)
-    save(prefix + 'list.sh', script + template_list)
-
-
-def generate_docker(source, prefix=''):
+def generate_bash(name, prefix):
     '''
     generate source file for docker
+    save scripts to files
+    return script with speed testing
     '''
-    slist = read_list(source)
-    template_speed = read_template('template/speed.sh')
-    template_docker = read_template('template/docker.sh')
+    slist = read_list(LIST_DIR + prefix + '/' + name + LIST_EXT)
+    template_source = read_template(TMPLATE_DIR + name + '.sh')
 
     lst = []
-    for (name, url) in slist.items():
-        lst.append("'{0}' #{1}".format(url, name))
-        script = template_docker.replace('${FAST_SRC}', url)
-        save(prefix + 'docker/' + name + '.sh', script)
+    for (key, url) in slist.items():
+        lst.append("'{0}' #{1}".format(url, key))
+        script = template_source.replace('${FAST_SRC}', url)
+        output_file = '{0}/{1}/{2}.sh'.format(prefix, name, key)
+        save(output_file, script)
 
     source_list = "\n\t".join(lst)
+    template_speed = read_template(TMPLATE_DIR + 'speed.sh')
     script = template_speed.replace('__SOURCE_LIST__', source_list)
-    save(prefix + 'docker.sh', script + template_docker)
+    script += template_source
+    save(prefix + '/' + name + '.sh', script)
+    return script
 
 
-def main():
+def generate():
     '''
-    entry
+     auto generate from  input folder
     '''
-    generate('source/ipv6.list', 'ipv6/')
-    generate('source/all.list', 'all/')
-    generate_docker('source/all.docker', 'all/')
-    generate_docker('source/ipv6.docker', 'ipv6/')
+    for folder in os.listdir(LIST_DIR):
+        # print(folder)
+        path = os.path.join(LIST_DIR, folder)
+        if not os.path.isdir(path):
+            continue
+        script = ''
+        for name in os.listdir(path):
+            name, ext = os.path.splitext(name)
+            if ext != LIST_EXT:
+                continue
+            script += generate_bash(name, folder)
+        save(os.path.join(folder, 'all.sh'), script)
+
+
+# def main():
+#     '''
+#     entry
+#     '''
+#     generate('source/')
+
 
 if __name__ == '__main__':
-    main()
+    generate()

@@ -1,0 +1,6 @@
+#pip 源列表
+
+https://mirrors.ustc.edu.cn/pypi/web/simple #ustc
+
+https://pypi.tuna.tsinghua.edu.cn/simple #tsinghua
+
