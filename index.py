@@ -50,7 +50,7 @@ def link(url, prefix=''):
     '''
     generate markdown link
     '''
-    return '\n* [{0}]({0}) : **`curl {2}{1}{0} -#L|bash`** '.format(
+    return '\n* [{0}]({0}) : **`curl {2}{1}{0} -#L|sudo bash`** '.format(
         url, prefix, SITE_ROOT)
 
 
