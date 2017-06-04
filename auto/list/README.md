@@ -8,5 +8,5 @@
 
 # All Links
 
-* [tsinghua.sh](tsinghua.sh) : **`curl https://source.newfuture.xyz/auto/list/tsinghua.sh -#L|sudo bash`** 
-* [ustc.sh](ustc.sh) : **`curl https://source.newfuture.xyz/auto/list/ustc.sh -#L|sudo bash`** 
+* [tsinghua.sh](tsinghua.sh) : **`curl https://newfuture.github.io/sourcelist/auto/list/tsinghua.sh -#L|sudo bash`** 
+* [ustc.sh](ustc.sh) : **`curl https://newfuture.github.io/sourcelist/auto/list/ustc.sh -#L|sudo bash`** 
