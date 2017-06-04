@@ -6,4 +6,4 @@
 
 一键切换或者根据速度自动切换源
 
-
+[自动配置源列表](https://newfuture.github.io/sourcelist/)

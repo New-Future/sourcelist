@@ -7,7 +7,7 @@ from __future__ import print_function
 
 import os
 
-SITE_ROOT = 'https://source.newfuture.xyz/'
+SITE_ROOT = 'https://newfuture.github.io/sourcelist/'
 TEMPLATE = '''
 # {title}
 ---
